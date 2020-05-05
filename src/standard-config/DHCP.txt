@@ -1,0 +1,79 @@
+version 12.x
+service timestamps log datetime msec localtime 
+service timestamps debug datetime msec localtime
+service password-encryption
+!
+hostname ${ct.cus}
+!
+logging buffered 20000
+!
+enable secret csl0x!nf0
+!
+!
+clock timezone TH 7
+ip cef
+ip subnet-zero
+ip name-server 203.146.237.237
+ip name-server 203.146.237.222
+ip dhcp excluded-address ${ct.itn.aaa}
+!
+!
+!
+ip dhcp pool clients
+   network ${ct.itn.def} ${ct.itn.snm}
+   default-router ${ct.itn.aaa}
+   dns-server 203.146.237.237 203.146.237.222
+!
+!
+username ${ct.lid} password ${ct.lpw}
+username csl password csloxinfo
+!
+interface Tunnel0
+ description Check status link Ethernet
+ ip unnumbered FastEthernet0/0
+ tunnel source ${ct.wan.bbb}
+ tunnel destination ${ct.wan.aaa}
+!
+interface FastEthernet0/0
+ description Connect to CS Loxinfo via Symphony/ADC/... Ethernet CID:${ct.cid},LinkID:${ct.lid},${MM}${DD},${YYYY}:${ct.isl}
+ ip address ${ct.wan.bbb} ${ct.wan.snm}
+ no ip redirects
+ no ip proxy-arp
+ ip nat outside
+ speed 100
+ full-duplex
+!
+interface FastEthernet0/1
+ description Internal Network
+ ip address ${ct.itn.aaa} ${ct.itn.snm}
+ ip address ${ct.lan.def} ${ct.lan.snm} secondary
+ no ip redirects
+ ip nat inside
+ speed 100
+ full-duplex
+!
+ip nat pool clients ${ct.lan.def} ${ct.lan.def} netmask ${ct.lan.snm}
+ip nat inside source list 1 pool clients overload
+no ip http server
+ip classless
+ip route 0.0.0.0 0.0.0.0 ${ct.wan.aaa} name Default_Route
+!
+access-list 1 remark NAT Clients
+access-list 1 permit 192.168.0.0 0.0.0.255
+access-list 10 remark Access Router
+access-list 10 permit 203.146.64.3
+access-list 10 permit 203.146.64.39
+access-list 10 permit 203.146.103.37
+access-list 10 permit 210.1.27.59
+access-list 10 permit ${ct.wan.def} ${ct.wan.cip}
+access-list 10 permit ${ct.lan.def} ${ct.lan.cip}
+!
+!
+line con 0
+line aux 0
+line vty 0 4
+ access-class 10 in
+ login local
+!
+ntp server 203.146.30.185
+end

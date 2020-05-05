@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>afile</title>
+    <link rel="stylesheet" href="../src/uikit/uikit-rtl.min.css">
+    <link rel="stylesheet" href="../src/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="index.css">
+
+    <script defer src="../src/uikit/uikit.min.js"></script>
+    <script src="../src/flatpickr/flatpickr.js"></script>
+   <script defer src="render.js"></script>
+   
+  </head>
+  <body>
+    <h1 class=" uk-text-center"><span>Ethernet</span></h1>
+    <form id="austonform" class="uk-grid-small" uk-grid>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="form-stacked-text">File Type</label>
+        <div class="uk-form-controls">
+          <ul class="uk-subnav uk-subnav-pill" uk-switcher>
+            <li class="uk-text-center" id="NOR" ><a href="#" onclick="offInternal()">Normal</a></li>
+            <li class="uk-text-center" id="DHCP"><a href="#" onclick="onInternal()">DHCP</a></li>
+            <li class="uk-text-center" id="NAT" ><a href="#" onclick="onInternal()">NAT</a></li>
+        </ul>
+        <ul hidden class="uk-switcher uk-margin"><li></li><li></li><li></li></ul>
+        </div>
+      </div>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="my-date">Date</label>
+        <div class="uk-form-controls">
+            <input id="my-date" class="uk-input"  type="text" placeholder="" required>
+        </div>
+      </div>
+
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="cus-name">Customer Name</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="cus-name" type="text" placeholder="" required>
+        </div>
+      </div>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="installer">Installer</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="installer" type="text" placeholder="" required>
+        </div>
+      </div>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="link-id">Link ID</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="link-id" type="text" placeholder="" required minlength="5">
+        </div>
+      </div>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="cir-id">Circuit ID</label>
+        <div class="uk-form-controls">
+            <input class="uk-input" id="cir-id" type="text" placeholder="" required>
+        </div>
+      </div>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="">WAN</label>
+        <div class="uk-grid-small ip" uk-grid>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="wan-a" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="wan-b" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="wan-c" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="wan-d" type="number" min=0 max=254 value="0"></div></div>
+        </div>
+      </div>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="form-stacked-text">Sub Net Mask (WAN)</label>
+        <div class="uk-grid-small ip" uk-grid>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="wan-snm-a" type="number" min=0 max=255 value="255" disabled></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="wan-snm-b" type="number" min=0 max=255 value="255" disabled></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="wan-snm-c" type="number" min=0 max=255 value="255" disabled></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="wan-snm-d" type="number" min=0 max=255 value="0"></div></div>
+        </div>
+      </div>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="form-stacked-text">LAN</label>
+        <div class="uk-grid-small ip" uk-grid>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="lan-a" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="lan-b" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="lan-c" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="lan-d" type="number" min=0 max=254 value="0"></div></div>
+        </div>
+      </div>
+      <div class="uk-width-1-2">
+        <label class="uk-form-label" for="form-stacked-text">Sub Net Mask (LAN)</label>
+        <div class="uk-grid-small ip" uk-grid>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="lan-snm-a" type="number" min=0 max=255 value="255" disabled></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="lan-snm-b" type="number" min=0 max=255 value="255" disabled></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="lan-snm-c" type="number" min=0 max=255 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="lan-snm-d" type="number" min=0 max=255 value="0"></div></div>
+        </div>
+      </div>
+      <div class="uk-width-1-2 uk-hidden" id="internal1">
+        <label class="uk-form-label" for="form-stacked-text">Internal</label>
+        <div class="uk-grid-small ip" uk-grid>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="itn-a" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="itn-b" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="itn-c" type="number" min=0 max=254 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="itn-d" type="number" min=0 max=254 value="0"></div></div>
+        </div>
+      </div>
+      <div class="uk-width-1-2 uk-hidden" id="internal2">
+        <label class="uk-form-label" for="form-stacked-text">Sub Net Mask (Internal)</label>
+        <div class="uk-grid-small ip" uk-grid>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="itn-snm-a" type="number" min=0 max=255 value="255" disabled></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="itn-snm-b" type="number" min=0 max=255 value="255" disabled></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="itn-snm-c" type="number" min=0 max=255 value="0"></div></div>
+          <div class="uk-width-1-4"><div class="uk-form-controls"><input class="uk-input" id="itn-snm-d" type="number" min=0 max=255 value="0"></div></div>
+        </div>
+      </div>
+      <div class="uk-width-2-2 uk-text-right">
+        <button class="uk-button uk-button-primary" id="createFile" type="submit">Create</button>
+      </div>
+    </form>
+  </body>
+</html>
