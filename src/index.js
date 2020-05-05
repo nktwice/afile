@@ -104,7 +104,7 @@ ipc.on('create-file', function(event, data){
     }
     dialog.showOpenDialog({properties: ['openDirectory']})
       .then(result=> {
-        var fname = `${ct.typ}_${ct.lid}_${ct.cus}_CONFIG_${DD}${MMM.toUpperCase()}${YY}.txt`;
+        var fname = `${ct.lid}_${ct.cus}_CONFIG_${DD}${MMM.toUpperCase()}${YY}.txt`;
         var fcontent;
         switch(ct.typ){
           case "NOR" :
